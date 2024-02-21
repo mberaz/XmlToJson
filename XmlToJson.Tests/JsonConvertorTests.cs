@@ -1,12 +1,15 @@
 using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace XmlToJson.Tests
 {
+  
+
     [TestClass]
     public class JsonConvertorTests
     {
         [TestMethod]
-        public void PlainXml()
+        public void ObjectWithPlainArrayXml()
         {
             var xmlData = @"<?xml version=""1.0"" encoding=""UTF-8""?>
                         <user>
@@ -20,16 +23,31 @@ namespace XmlToJson.Tests
                         </user>
                         ";
 
-            XDocument doc = XDocument.Parse(xmlData);
-            var root = doc.Root;
-            var name = root.Element("firstName").Value;
-            Assert.IsNotNull(name);
+            var schema = NJsonSchema.JsonSchema.FromType<ObjectWithPlainArrayClass>();
+            var result = JsonConvertor.Convert(schema, xmlData);
 
-            var hobbies = root.Element("hobbies").Descendants();
-            foreach (var hobby in hobbies)
-            {
-                Assert.IsNotNull(hobby.Value);
-            }
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void ObjectWithInnerObjectXml()
+        {
+            var xmlData = @"<?xml version=""1.0"" encoding=""UTF-8""?>
+                        <user>
+                            <firstName>jonn</firstName>
+                            <lastName>smith</lastName>
+                            <age>20</age>
+                            <inner>
+                                <isActive>true</isActive>
+                                <rank>10</rank>
+                            </inner>
+                        </user>
+                        ";
+
+            var schema = NJsonSchema.JsonSchema.FromType<ObjectWithInnerObjectClass>();
+            var result = JsonConvertor.Convert(schema, xmlData);
+
+            Assert.IsNotNull(result);
         }
     }
 }

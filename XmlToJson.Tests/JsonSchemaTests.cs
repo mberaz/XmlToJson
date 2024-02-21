@@ -22,8 +22,8 @@ namespace XmlToJson.Tests
                 }
 
             };
-            var schema = NJsonSchema.JsonSchema.FromSampleJson(sampleJson.ToString());
-
+             var schema = NJsonSchema.JsonSchema.FromSampleJson(sampleJson.ToString());
+            
             var attributes = schema.Properties;
             Assert.IsNotNull(attributes);
         }
