@@ -1,7 +1,4 @@
-using System.Diagnostics;
-using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
-using NJsonSchema.Generation;
 
 namespace XmlToJson.Tests
 {
@@ -20,8 +17,7 @@ namespace XmlToJson.Tests
                                 <hobby>games</hobby>
                                 <hobby>fishing</hobby>
                             </hobbies>
-                        </user>
-                        ";
+                        </user>";
 
             var schema = NJsonSchema.JsonSchema.FromType<ObjectWithPlainArrayClass>();
             var result = JsonConverter.Convert(schema, xmlData);
@@ -48,8 +44,7 @@ namespace XmlToJson.Tests
                                 <isActive>true</isActive>
                                 <rank>10</rank>
                             </inner>
-                        </user>
-                        ";
+                        </user>";
 
             var schema = NJsonSchema.JsonSchema.FromType<ObjectWithInnerObjectClass>();
             var result = JsonConverter.Convert(schema, xmlData);
@@ -82,8 +77,7 @@ namespace XmlToJson.Tests
                                     <rank>30</rank>
                                 </inner>
                             </innerList>
-                        </user>
-                        ";
+                        </user>";
 
             var schema = NJsonSchema.JsonSchema.FromType<ObjectWithInnerObjectListClass>();
             var result = JsonConverter.Convert(schema, xmlData);

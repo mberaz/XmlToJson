@@ -65,7 +65,6 @@ namespace XmlToJson
                         break;
 
                     case JsonObjectType.Object:
-
                         result[property.Key] = Parse(property.Value.ActualTypeSchema, element.Descendants().ToList());
 
                         break;
@@ -74,7 +73,6 @@ namespace XmlToJson
 
             return result;
         }
-
 
         private static JToken ParsePlain(string xmlValue, JsonObjectType type)
         {
