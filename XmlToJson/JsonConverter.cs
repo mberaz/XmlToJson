@@ -5,7 +5,7 @@ using JsonSchema = NJsonSchema.JsonSchema;
 
 namespace XmlToJson
 {
-    public class JsonConvertor
+    public class JsonConverter
     {
         public static JObject Convert(JsonSchema schema, string document) =>
                                     Convert(schema, XDocument.Parse(document));
@@ -47,15 +47,18 @@ namespace XmlToJson
                         break;
 
                     case JsonObjectType.Array:
-                        if (property.Value.Item.Type == JsonObjectType.Object)
-                        {//array of objects 
-
+                        if (property.Value.Item.Reference?.Type == JsonObjectType.Object)
+                        {   //array of objects 
+                            var array = element.Elements()
+                                .Select(e => Parse(property.Value.Item.Reference, e.Elements().ToList()));
+                            
+                            result[property.Key] = new JArray(array);
                         }
                         else
                         {   //array of plain items
-                            var array = element.Descendants()
+                            var array = element.Elements()
                                 .Select(c => ParsePlain(c.Value, property.Value.Item.Type));
-
+                           
                             result[property.Key] = new JArray(array);
                         }
 
