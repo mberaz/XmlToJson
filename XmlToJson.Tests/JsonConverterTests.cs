@@ -14,8 +14,8 @@ namespace XmlToJson.Tests
                             <lastName>smith</lastName>
                             <age>20</age>
                             <hobbies>
-                                <hobby>games</hobby>
-                                <hobby>fishing</hobby>
+                                <hobby>1</hobby>
+                                <hobby>2</hobby>
                             </hobbies>
                         </user>";
 
@@ -27,9 +27,9 @@ namespace XmlToJson.Tests
             Assert.AreEqual(result["lastName"].Value<string>(), "smith");
             Assert.AreEqual(result["age"].Value<int>(), 20);
 
-            var array = result["hobbies"].Value<JArray>().Select(t=>t.Value<string>()).ToList();
-            Assert.IsTrue(array.Contains("games")); 
-            Assert.IsTrue(array.Contains("fishing")); 
+            var array = result["hobbies"].Value<JArray>().Select(t=>t.Value<int>()).ToList();
+            Assert.IsTrue(array.Contains(1)); 
+            Assert.IsTrue(array.Contains(2)); 
         }
 
         [TestMethod]
